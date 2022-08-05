@@ -1,6 +1,5 @@
 var timeBlocks = document.querySelector('.container');
 
-
 //shows current date and time in header
 window.onload = todaysDate();
 function todaysDate() {
@@ -13,48 +12,43 @@ function todaysDate() {
 var myDay = [
     {
         hour: "9 AM",
-        time: "9",
-        task: ""
+        time: 9
     },
     {
         hour: "10AM",
-        time: "10",
-        task: ""
+        time: 10
     },
     {
         hour: "11 AM",
-        time: "11",
-        task: ""
+        time: 11,
     },
     {
         hour: "12 PM",
-        time: "12",
-        task: ""
+        time: 12
     },
     {
         hour: "1 PM",
-        time: "13",
-        task: ""
+        time: 13
     },
     {
         hour: "2 PM",
-        time: "14",
-        task: ""
+        time: 14
     },
     {
         hour: "3 PM",
-        time: "15",
-        task: ""
+        time: 15
     },
     {
         hour: "4 PM",
-        time: "16",
-        task: ""
+        time: 16
     },
     {
         hour: "5 PM",
-        time: "17",
-        task: ""
+        time: 17
+    },
+    {
+        hour: "6 PM",
+        time: 18
     }
 ]
 
@@ -70,7 +64,6 @@ function makeMyDay() {
         taskEl.classList.add('description', 'col-8');
         saveEl.classList.add('saveBtn', 'col');
         hourEl.textContent = myDay[i].hour;
-        taskEl.textContent = myDay[i].task;
         saveEl.textContent = "save";
         timeBlocks.append(newRow);
         newRow.append(hourEl,taskEl,saveEl);
@@ -81,7 +74,7 @@ function makeMyDay() {
             taskEl.classList.add('past');
         } else if (myDay[i].time == moment().format('H')) {
             taskEl.classList.add('present');
-        } else if (myDay[i].time > moment().format('H')) {
+        } else {
             taskEl.classList.add('future');
         }
     }
@@ -89,6 +82,18 @@ function makeMyDay() {
 
 makeMyDay();
 
+//saves the text for the task in local storage
+$(document).ready(function () {
+    $('.saveBtn').on('click', function() {
+        var memo = $(this).parent().children('.description').val();
+        var hour = $(this).parent().children('.hour').text();
+
+        localStorage.setItem(hour,memo);
+        console.log("value is ", memo);
+        console.log("hour is", hour);
+    })
+}) 
+
+
 //TODO:
-//save button function
-//local storage: getItem, setItem
+//local storage: getItem
